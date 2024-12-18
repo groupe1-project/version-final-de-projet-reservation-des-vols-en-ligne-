@@ -111,6 +111,8 @@ public class AppController {
             logger.error("Error generating ticket PDF", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null); // En cas d'erreur
         }
+
+        
     }
     
 }
