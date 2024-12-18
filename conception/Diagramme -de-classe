@@ -1,0 +1,98 @@
+## Diagramme de Classe
+
+```mermaid
+classDiagram
+    class Vol {
+        + codeIATATransporteur: String
+        + numeroVol: String
+        + dateVol: Date
+        + aeroportOrigine: Aeroport
+        + aeroportDestination: Aeroport
+        + avion: Avion
+        + ajouterVol()
+        + modifierVol()
+        + supprimerVol()
+        + getDetailsVol()
+    }
+
+    class Avion {
+        + id: int
+        + type: String
+        + capacite: int
+        + anneeFabrication: int
+        + modele: String
+        + ajouterAvion()
+        + modifierAvion()
+        + supprimerAvion()
+        + getDetailsAvion()
+    }
+
+    class Passager {
+        - id: int
+        - nomComplet: String
+        - numeroPasseport: String
+        - dateNaissance: Date
+        - nationalite: String
+        - telephone: int
+        - adresse: String
+        - email: String
+        + ajouterPassager()
+        + modifierPassager()
+        + supprimerPassager()
+        + getDetailsPassager()
+        + consulterhistoriquePassager()
+    }
+
+    class Reservation {
+        - idReservation: int
+        - vol: Vol
+        - passagers: List<Passager>
+        - dateReservation: Date
+        - statut: String
+        - prixTotal: double
+        + ajouterReservation()
+        + modifierReservation()
+        + annulerReservation()
+        + getDetailsReservation()
+        + confirmerPaiement()
+    }
+
+    class MembreEquipage {
+        - nomComplet: String
+        - fonction: String
+        - numeroLicence: String
+        - nationalite: String
+        + ajouterMembreEquipage()
+        + modifierMembreEquipage()
+        + supprimerMembreEquipage()
+        + getDetailsMembreEquipage()
+    }
+
+    class Aeroport {
+        + codeIATA: String
+        + nom: String
+        + ville: String
+        + pays: String
+        + capaciteTraitement: int
+        + ajouterAeroport()
+        + modifierAeroport()
+        + supprimerAeroport()
+        + getDetailsAeroport()
+    }
+
+    class paiement {
+        - idpaiement: String
+        - montant: int
+        - Date de paiement: Date
+        + getDetailspaiement()
+    }
+
+    Vol *-- Avion : utilise
+    Vol *--> Aeroport : depart de / arrive a
+    Vol *--> MembreEquipage : necessite
+    Aeroport --> Vol : 
+    Avion --* Vol : associe
+    Reservation --> Vol : reference
+    Reservation --> paiement : necessite
+    Reservation --> Passager : 
+    Passager --* Reservation : fait partir de
