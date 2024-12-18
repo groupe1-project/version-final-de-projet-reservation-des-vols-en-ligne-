@@ -1,0 +1,40 @@
+sequenceDiagram
+    participant client 
+    participant systeme d'authentification
+    participant systeme de gestion 
+    participant aeroport
+    participant vol
+    participant Reservation
+    participant facture
+    loop
+    client->>systeme d'authentification: s'authentifier
+    systeme d'authentification->>systeme d'authentification: verifier les informations saisies
+    alt si les informations sont valide
+    systeme d'authentification-->>client: connection reussite 
+    
+    
+     client->>systeme de gestion : saisir(aeroportde depart ,aeroport arivée,nombre de passages )
+    
+    
+        systeme de gestion ->> aeroport :verifier disponibilité(aeroport d'arrivé , aeroport de depart ,nombre de passagers )
+        aeroport ->> vol : verifier disponibilité(aeroport d'arrivé , aeroport de depart ,nombre de passagers )
+            vol->>vol:verification
+
+        alt si la verification est valide
+        vol-->> systeme de gestion: reponses positive
+        systeme de gestion -->>client : affiche les vols diponible pour client 
+     client->>systeme de gestion  :selectionner une vol
+     systeme de gestion ->>Reservation : <<creer une reservation >>
+     client ->> facture :effectuer un payement 
+     facture -->> client :recevoir la facture
+     client ->>systeme de gestion :enregistrer l'historique de payement
+        else si la verification est non valide
+        vol -->>  systeme de gestion: reponses negative
+        systeme de gestion -->>  client: probleme (vol est indisponible)
+    end
+    
+    else
+    systeme d'authentification-->>client: authentification est invalide 
+end
+end
+
