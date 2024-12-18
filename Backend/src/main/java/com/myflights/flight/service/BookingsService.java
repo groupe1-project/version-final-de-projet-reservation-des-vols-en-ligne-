@@ -16,5 +16,8 @@ public class BookingsService {
     public void saveBooking(Bookings booking){
         repo.saveAndFlush(booking);
     }
+    public Bookings findBookingById(Integer bkid){
+        return repo.findById(bkid).orElse(null);
+    }
     
 }

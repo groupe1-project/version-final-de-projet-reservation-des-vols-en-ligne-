@@ -47,11 +47,11 @@ public class Bookings {
     @Column(name = "dob")
     private String dob;
 
-    public Integer getBkid() {
+    public Integer  getBkid() {
         return bkid;
     }
 
-    public void setBkid(Integer bkid) {
+    public void setBkid(Integer  bkid) {
         this.bkid = bkid;
     }
 
