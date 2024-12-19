@@ -98,7 +98,7 @@ public class AppController {
 
             // Définir les headers pour le téléchargement du PDF
             HttpHeaders headers = new HttpHeaders();
-            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=flight-ticket-" + bkid + ".pdf");
+            headers.add(HttpHeaders.CONTENT_DISPOSITION,  "inline; filename=ticket.pdf");
             headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_PDF_VALUE);
 
             // Retourner la réponse avec le PDF en byte array
