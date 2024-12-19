@@ -60,15 +60,11 @@
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.itextpdf</groupId>
-			<artifactId>kernel</artifactId>
-       		 <version>7.2.3</version> <!-- Vérifiez la version la plus récente -->
-   		 </dependency>
+		
 		 <dependency>
 			<groupId>com.itextpdf</groupId>
-			<artifactId>layout</artifactId>
-			<version>7.2.3</version>
+			<artifactId>itextpdf</artifactId>
+			<version>5.5.13.1</version>
     	</dependency>
 	</dependencies>
 	
