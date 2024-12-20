@@ -1,29 +1,41 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
-const BookFlight = ({ match }) => {
+const BookFlight = () => {
+  const { bkid } = useParams();  // Utilisation de useParams pour récupérer l'ID
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
-  const bookingId = match.params.bkid;  // Vous récupérez l'ID de réservation depuis l'URL
 
-  const generateTicket = async (bookingId) => {
-    console.log('Function generateTicket called with bookingId:', bookingId);
+  const generateTicket = async () => {
+    console.log('Function generateTicket called with bookingId:', bkid);
     setLoading(true);
-    
+
     try {
-      const response = await axios.get(`http://localhost:8080/generate-ticket/${bookingId}`, {
-        responseType: 'arraybuffer'  // Indique que nous attendons un fichier binaire (PDF)
+      // Envoi de la requête pour générer le PDF
+      const response = await axios.get(`http://localhost:8080/generate-ticket/${bkid}`, {
+        responseType: 'arraybuffer'  // Attente d'un fichier binaire (PDF)
       });
       console.log('Received response:', response);
-      // Créer un lien pour télécharger le PDF
+      
+      // Création du fichier Blob à partir de la réponse
       const blob = new Blob([response.data], { type: 'application/pdf' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
-      link.download = `flight-ticket-${bookingId}.pdf`;  // Le nom du fichier PDF
-      link.click();  // Simule le clic pour télécharger le fichier
+      link.download = `flight-ticket-${bkid}.pdf`;  // Nom du fichier PDF
+      
+      // Ajouter le lien au DOM et simuler un clic pour démarrer le téléchargement
+      document.body.appendChild(link);
+      
+      // Attendre un petit délai avant de simuler le clic (parfois nécessaire)
+      setTimeout(() => {
+        link.click();  // Déclenche le téléchargement
+        document.body.removeChild(link);  // Retirer le lien après utilisation
+      }, 100);
+
       setMessage('Ticket PDF generated successfully!');
     } catch (error) {
-      setMessage('Error generating ticket PDF.');
+      setMessage(`Error generating ticket PDF: ${error.message}`);
       console.error('Error generating PDF:', error);
     } finally {
       setLoading(false);
@@ -33,7 +45,7 @@ const BookFlight = ({ match }) => {
   return (
     <div>
       <h1>Flight Booking</h1>
-      <button onClick={generateTicket}>Book this flight</button>
+      <button onClick={generateTicket} disabled={loading}>Book this flight</button>
       {loading && <p>Loading...</p>}
       {message && <p>{message}</p>}
     </div>

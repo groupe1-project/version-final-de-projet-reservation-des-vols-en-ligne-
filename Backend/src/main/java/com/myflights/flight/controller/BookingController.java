@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,8 +37,8 @@ public class BookingController {
 
         // Définir les en-têtes pour la réponse HTTP (type PDF et disposition de fichier)
         HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=ticket.pdf");
-        headers.add(HttpHeaders.CONTENT_TYPE, "application/pdf");
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=ticket.pdf");
+        headers.add(HttpHeaders.CONTENT_TYPE,  MediaType.APPLICATION_PDF_VALUE);
 
         // Retourner le PDF avec les en-têtes et un statut HTTP 200
         return new ResponseEntity<>(pdfData, headers, HttpStatus.OK);
