@@ -107,7 +107,7 @@ public class AppController {
                     .contentType(MediaType.APPLICATION_PDF)
                     .body(pdfBytes);
         } catch (IOException e) {
-            logger.error("Error generating ticket PDF", e);
+            logger.error("Error generating ticket PDF for booking ID: " + bkid, e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null); // En cas d'erreur
         }
 
