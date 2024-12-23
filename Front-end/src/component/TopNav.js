@@ -71,7 +71,7 @@ export default function TopNav() {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-           App name
+           Aviatours
           </Typography>
           <Search>
             <SearchIconWrapper>
